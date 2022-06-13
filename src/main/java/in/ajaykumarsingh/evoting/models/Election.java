@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public class Election {
 
 	private int id;
+	private int constituencyId;
 	private String Name;
 	private LocalDate startDate;
 	private LocalDate endDate;
@@ -16,6 +17,14 @@ public class Election {
 	
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getConstituencyId() {
+		return constituencyId;
+	}
+
+	public void setConstituencyId(int constituencyId) {
+		this.constituencyId = constituencyId;
 	}
 	
 	public String getName() {
