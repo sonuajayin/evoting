@@ -2,14 +2,29 @@ package in.ajaykumarsingh.evoting.models;
 
 import java.time.LocalDate;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Election {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private int constituencyId;
+	
 	private String Name;
+	
 	private LocalDate startDate;
+	
 	private LocalDate endDate;
-	private boolean isActive;	
+	
+	private boolean isActive;
+	
+	@ManyToOne
+	private Area area;
 	
 	public int getId() {
 		return id;
@@ -17,14 +32,6 @@ public class Election {
 	
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	public int getConstituencyId() {
-		return constituencyId;
-	}
-
-	public void setConstituencyId(int constituencyId) {
-		this.constituencyId = constituencyId;
 	}
 	
 	public String getName() {
@@ -58,5 +65,13 @@ public class Election {
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
 	}	
+	
+	public Area getArea() {
+		return area;
+	}
+
+	public void setArea(Area area) {
+		this.area = area;
+	}
 	
 }
