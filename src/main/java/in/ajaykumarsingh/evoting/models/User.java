@@ -1,5 +1,6 @@
 package in.ajaykumarsingh.evoting.models;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class User {
@@ -22,7 +25,8 @@ public class User {
 	
 	private String email;
 	
-	private Date dateOfBirth;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private LocalDate dateOfBirth;
 	
 	private String voterId;
 	
@@ -62,11 +66,11 @@ public class User {
 		this.email = email;
 	}
 
-	public Date getDateOfBirth() {
+	public LocalDate getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(Date dateOfBirth) {
+	public void setDateOfBirth(LocalDate dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
 

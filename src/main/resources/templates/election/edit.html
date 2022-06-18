@@ -9,20 +9,14 @@
 	<main class="flex-shrink-0">
 		<div class="container">
 			<div class="card-body">
-				<h3 class="card-title text-center">Add Candidate</h3>
+				<h3 class="card-title text-center">Update Election</h3>
 				<hr>
 				<div class="card-text">
-					<form th:action="@{/candidate/add}" th:object="${candidate}"
-						method="post">
+					<form th:action="@{/election/edit/{id}(id=${election.id})}" th:object="${election}" method="post">						
 						<div class="form-group mb-3">
 							<label for="name">Name</label> <input type="text"
 								th:field="*{name}" class="form-control form-control-sm"
 								id="name" />
-						</div>
-						<div class="form-group mb-3">
-							<label for="party">Party</label> <input type="text"
-								th:field="*{party}" class="form-control form-control-sm"
-								id="party" />
 						</div>
 						<div class="form-group mb-3">
 							<label for="area">Area</label>
@@ -33,9 +27,19 @@
 									th:text=${item.name}></option>
 							</select>
 						</div>
+						<div class="form-group mb-3">
+							<label for="startDate">Start Date</label> <input type="date"
+								th:field="*{{startDate}}" class="form-control form-control-sm"
+								id="startDate" />
+						</div>
+						<div class="form-group mb-3">
+							<label for="endDate">End Date</label> <input type="date"
+								th:field="*{endDate}" class="form-control form-control-sm"
+								id="endDate" />
+						</div>					
 
 						<input type="submit" value="Save"
-							class="btn btn-primary btn-block" /> <a th:href="@{/candidate}"
+							class="btn btn-primary btn-block" /> <a th:href="@{/election}"
 							class="btn btn-outline-primary">Back</a>
 
 					</form>

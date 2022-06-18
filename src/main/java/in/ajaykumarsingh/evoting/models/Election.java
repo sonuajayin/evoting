@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class Election {
 
@@ -20,11 +22,11 @@ public class Election {
 	
 	private String Name;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate startDate;
 	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate endDate;
-	
-	private boolean isActive;
 	
 	@ManyToOne
 	@JoinColumn(name = "area_id")
@@ -66,15 +68,7 @@ public class Election {
 	
 	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
-	}
-	
-	public boolean isActive() {
-		return isActive;
-	}
-	
-	public void setActive(boolean isActive) {
-		this.isActive = isActive;
-	}	
+	}		
 	
 	public Area getArea() {
 		return area;

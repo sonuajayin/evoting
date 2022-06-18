@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="fragments/header :: head"></head>
+<body class="d-flex flex-column h-100">
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<main class="flex-shrink-0">
+		<div class="container">
+			<div class="card-body">
+				<h3 class="card-title text-center">Elections</h3>
+				<hr>
+				<div class="card-text" th:switch="${elections}">
+					<a th:href="@{/election/add}"
+							class="btn btn-primary" style="float:right">Add</a>
+					<h2 th:case="null">No election yet!</h2>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Area / Constitution</th>
+								<th>Start Date</th>
+								<th>End Date</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="election : ${elections}">
+								<td th:text="${election.name}"></td>
+								<td th:text="${election.area.name}"></td>
+								<td th:text="${#temporals.format(election.startDate, 'dd-MMMM-yyyy', new java.util.Locale('en', 'EN'))}"></td>
+								<td th:text="${#temporals.format(election.endDate, 'dd-MMMM-yyyy', new java.util.Locale('en', 'EN'))}"></td>								
+								<td><a class="btn btn-primary btn-block" th:href="@{/election/edit/{id}(id=${election.id})}">Edit</a></td>
+								<td><a class="btn btn-danger btn-block" th:href="@{/election/delete/{id}(id=${election.id})}">Delete</a></td>
+							</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

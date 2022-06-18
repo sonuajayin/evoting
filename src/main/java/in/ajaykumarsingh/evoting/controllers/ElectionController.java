@@ -10,67 +10,69 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import in.ajaykumarsingh.evoting.models.Candidate;
+import in.ajaykumarsingh.evoting.models.Election;
 import in.ajaykumarsingh.evoting.repositories.AreaRepository;
 import in.ajaykumarsingh.evoting.repositories.CandidateRepository;
+import in.ajaykumarsingh.evoting.repositories.ElectionRepository;
 
 @Controller
-@RequestMapping("/candidate")
+@RequestMapping("/election")
 @Secured("ADMIN")
-public class CandidateController {
+public class ElectionController {
 	
 	@Autowired
 	private AreaRepository areaRepository;
 	
 	@Autowired
-	private CandidateRepository candidateRepository;
+	private ElectionRepository electionRepository;
 	
 	@GetMapping("")
 	public String index(Model model) {
-		model.addAttribute("candidates", candidateRepository.findAll());
-		return "candidate/index";
+		model.addAttribute("elections", electionRepository.findAll());
+		return "election/index";
 	}
 	
 	@GetMapping("/add")
-	public String addCandidate(Model model) {
+	public String addElection(Model model) {
 		model.addAttribute("areas", areaRepository.findAll());
-		model.addAttribute("candidate", new Candidate());		
-		return "candidate/add";
+		model.addAttribute("election", new Election());		
+		return "election/add";
 	}
 	
 	@PostMapping("/add")
-	public String addCandidate(Candidate candidate, BindingResult result, Model model) {
+	public String addElection(Election election, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			model.addAttribute("areas", areaRepository.findAll());
-			return "candidate/add";
+			return "election/add";
 		}
-		candidateRepository.save(candidate);
-		return "redirect:/candidate";
+		electionRepository.save(election);
+		return "redirect:/election";
 	}
 	
 	@GetMapping("/edit/{id}")
 	public String showEdit(@PathVariable("id") int id, Model model) {
 		
-		Candidate candidate=candidateRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid candidate Id"+id));
+		Election election=electionRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid election Id"+id));
 		model.addAttribute("areas", areaRepository.findAll());
-		model.addAttribute("candidate", candidate);		
-		return "candidate/edit";
+		model.addAttribute("election", election);		
+		return "election/edit";
 	}
 	
 	@PostMapping("/edit/{id}")
-	public String edit(@PathVariable("id") int id, Candidate candidate, BindingResult result, Model model) {
+	public String edit(@PathVariable("id") int id, Election election, BindingResult result, Model model) {
 		if(result.hasErrors()) {
 			model.addAttribute("areas", areaRepository.findAll());
-			candidate.setId(id);
-			return "candidate/edit";
+			election.setId(id);
+			return "election/edit";
 		}
-		candidateRepository.save(candidate);
-		return "redirect:/candidate";
+		electionRepository.save(election);
+		return "redirect:/election";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String edit(@PathVariable("id") int id, Model model) {
-		Candidate candidate=candidateRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid candidate Id"+id));
-		candidateRepository.delete(candidate);
-		return "redirect:/candidate";
+		Election election=electionRepository.findById(id).orElseThrow(()->new IllegalArgumentException("Invalid election Id"+id));
+		electionRepository.delete(election);
+		return "redirect:/election";
 	}
 }

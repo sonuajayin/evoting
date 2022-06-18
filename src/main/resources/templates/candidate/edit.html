@@ -12,15 +12,31 @@
 				<h3 class="card-title text-center">Update Candidate</h3>
 				<hr>
 				<div class="card-text">
-					<form th:action="@{/area/edit/{id}(id=${area.id})}" th:object="${area}" method="post">						
+					<form th:action="@{/candidate/edit/{id}(id=${candidate.id})}" th:object="${candidate}" method="post">						
 						<div class="form-group mb-3">
 							<label for="name">Name</label> <input type="text"
 								th:field="*{name}" class="form-control form-control-sm"
 								id="name" />
 						</div>
+						
+						<div class="form-group mb-3">
+							<label for="party">Party</label> <input type="text"
+								th:field="*{party}" class="form-control form-control-sm"
+								id="party" />
+						</div>
+						
+						<div class="form-group mb-3">
+							<label for="area">Area</label>
+							<!-- <input id="customer-id" name="customer-id" type="hidden" th:field="*{selectedCustomerId}"/> -->
+							<select class="form-control" th:field="*{area}">
+								<option value="0">--Select--</option>
+								<option th:each="item : ${areas}" th:value=${item.id}
+									th:text=${item.name}></option>
+							</select>
+						</div>
 
 						<input type="submit" value="Save"
-							class="btn btn-primary btn-block" /> <a th:href="@{/area}"
+							class="btn btn-primary btn-block" /> <a th:href="@{/candidate}"
 							class="btn btn-outline-primary">Back</a>
 
 					</form>
