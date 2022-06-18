@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="fragments/header :: head"></head>
+<body class="d-flex flex-column h-100">
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<main class="flex-shrink-0">
+		<div class="container">
+			<div class="card-body">
+				<h3 class="card-title text-center">Area / Constitution</h3>
+				<hr>
+				<div class="card-text" th:switch="${candidates}">
+					<a th:href="@{/candidate/add}"
+							class="btn btn-primary" style="float:right">Add</a>
+					<h2 th:case="null">No candidate yet!</h2>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Name</th>
+								<th>Party</th>
+								<th>Area / Constitution</th>
+								<th>Edit</th>
+								<th>Delete</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="candidate : ${candidates}">
+								<td th:text="${candidate.name}"></td>
+								<td th:text="${candidate.party}"></td>
+								<td th:text="${candidate.area.name}"></td>
+								<td><a class="btn btn-primary btn-block" th:href="@{/candidate/edit/{id}(id=${candidate.id})}">Edit</a></td>
+								<td><a class="btn btn-danger btn-block" th:href="@{/candidate/delete/{id}(id=${candidate.id})}">Delete</a></td>
+							</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="fragments/header :: head"></head>
+<body class="container-fluid">
+	<div th:replace="fragments/navbar :: navbar"></div>
+	<div class="container-fluid">
+
+		<div class="px-4 py-5 my-5 text-center">
+			<img class="d-block mx-auto mb-4" th:src="@{../images/evote.jpg}"
+				alt="" width="150" height="100">
+			<h1 class="display-5 fw-bold">eVote Admin Panel</h1>
+			<div class="col-lg-6 mx-auto">
+				<p class="lead mb-4">Hello Admin. Welcome to eVote Admin Panel. Select the sections below to navigate.</p>
+				<div class="d-grid gap-2 d-sm-flex justify-content-sm-center">					
+					<a th:href="@{/area}" class="btn btn-outline-primary btn-lg px-4">Area / Constitution</a>
+					<a th:href="@{/candidate}" class="btn btn-outline-primary btn-lg px-4">Candidate</a>
+					<a th:href="@{/election}" class="btn btn-outline-primary btn-lg px-4">Election</a>
+					<a th:href="@{/user}" class="btn btn-outline-primary btn-lg px-4">Voters</a>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="container-fluid">
+			<footer th:replace="fragments/footer :: footer"></footer>
+		</div>
+	</div>
+</body>
+</html>

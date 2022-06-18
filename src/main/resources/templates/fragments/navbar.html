@@ -7,7 +7,7 @@ main>.container {
 	<!-- Fixed navbar -->
 	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
 		<div class="container-fluid">
-			<a class="navbar-brand" th:href="@{/}">eVote</a>
+			<a class="navbar-brand" th:href="@{/admin}">eVote</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
 				aria-controls="navbarCollapse" aria-expanded="false"
@@ -16,10 +16,11 @@ main>.container {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarCollapse">
 				<ul class="navbar-nav me-auto mb-2 mb-md-0">
-					<li class="nav-item"><a class="nav-link active"	aria-current="page" th:href="@{/}">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Link</a></li>
-					<li class="nav-item"><a class="nav-link disabled">Disabled
-							Something</a></li>
+					<li class="nav-item"><a class="nav-link active"	aria-current="page" th:href="@{/admin}">Home</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/area}">Area / Constitution</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/candidate}">Candidate</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/election}">Election</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/user}">Voters</a></li>			
 				</ul>
 				<form class="d-flex" th:action="@{/logout}" method="post">
 					<input type="submit" class="btn btn-outline-danger"

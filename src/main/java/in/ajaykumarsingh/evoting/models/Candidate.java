@@ -7,8 +7,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 @Entity
 public class Candidate {
@@ -16,14 +18,13 @@ public class Candidate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-	private int electionId;
 	private String name;
 	private String party;
 	
 	@ManyToOne
 	@JoinColumn(name = "area_id")
 	private Area area;
-	
+
 	@OneToMany(mappedBy = "candidate")
 	private List<VoteCounter> voteCounters;
 	
@@ -33,14 +34,6 @@ public class Candidate {
 	
 	public void setId(int id) {
 		this.id = id;
-	}
-	
-	public int getElectionId() {
-		return electionId;
-	}
-	
-	public void setElectionId(int electionId) {
-		this.electionId = electionId;
 	}
 	
 	public String getName() {

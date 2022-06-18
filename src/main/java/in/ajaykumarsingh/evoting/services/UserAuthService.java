@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import in.ajaykumarsingh.evoting.models.User;
@@ -19,6 +21,9 @@ public class UserAuthService implements UserDetailsService {
 	private UserRepository userRepository;
 
 	public org.springframework.security.core.userdetails.User loadUserByUsername(String email) {
+		
+		BCryptPasswordEncoder encoder = passwordEncoder();
+		
 		User user = userRepository.findByEmail(email);
 		if (user == null) {
 			throw new NullPointerException("No user found with username: " + email);
@@ -28,7 +33,7 @@ public class UserAuthService implements UserDetailsService {
 		boolean credentialsNonExpired = true;
 		boolean accountNonLocked = true;
 
-		return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword().toLowerCase(),
+		return new org.springframework.security.core.userdetails.User(user.getEmail(), encoder.encode(user.getPassword()),
 				enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, getAuthorities(user.getRole()));
 	}
 
@@ -36,5 +41,10 @@ public class UserAuthService implements UserDetailsService {
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(role));
 		return authorities;
+	}
+	
+	@Bean
+	public BCryptPasswordEncoder passwordEncoder() {
+	    return new BCryptPasswordEncoder();
 	}
 }
