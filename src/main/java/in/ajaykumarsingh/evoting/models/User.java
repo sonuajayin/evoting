@@ -1,12 +1,15 @@
 package in.ajaykumarsingh.evoting.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class User {
@@ -25,8 +28,15 @@ public class User {
 	
 	private String role;
 	
+	private String password;
+	
+	
 	@ManyToOne
+	@JoinColumn(name = "area_id", nullable = true)
 	private Area area;
+	
+	@OneToMany(mappedBy = "user")
+	private List<VoteRecord> voteRecords;
 
 	public long getId() {
 		return id;
@@ -82,6 +92,22 @@ public class User {
 
 	public void setArea(Area area) {
 		this.area = area;
-	}		
+	}
+
+	public List<VoteRecord> getVoteRecords() {
+		return voteRecords;
+	}
+
+	public void setVoteRecords(List<VoteRecord> voteRecords) {
+		this.voteRecords = voteRecords;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}	
 	
 }

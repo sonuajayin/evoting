@@ -1,12 +1,15 @@
 package in.ajaykumarsingh.evoting.models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Election {
@@ -24,7 +27,14 @@ public class Election {
 	private boolean isActive;
 	
 	@ManyToOne
+	@JoinColumn(name = "area_id")
 	private Area area;
+	
+	@OneToMany(mappedBy = "election")
+	private List<VoteCounter> voteCounters;
+	
+	@OneToMany(mappedBy = "election")
+	private List<VoteRecord> voteRecords;
 	
 	public int getId() {
 		return id;
@@ -72,6 +82,22 @@ public class Election {
 
 	public void setArea(Area area) {
 		this.area = area;
+	}
+
+	public List<VoteCounter> getVoteCounters() {
+		return voteCounters;
+	}
+
+	public void setVoteCounters(List<VoteCounter> voteCounters) {
+		this.voteCounters = voteCounters;
+	}
+
+	public List<VoteRecord> getVoteRecords() {
+		return voteRecords;
+	}
+
+	public void setVoteRecords(List<VoteRecord> voteRecords) {
+		this.voteRecords = voteRecords;
 	}
 	
 }

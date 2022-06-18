@@ -4,8 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class VoteCounter {
@@ -13,11 +15,13 @@ public class VoteCounter {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
-
-	@ManyToMany
+	
+	@ManyToOne
+	@JoinColumn(name = "election_id")
 	private Election election;
 	
 	@ManyToOne
+	@JoinColumn(name = "candidate_id")
 	private Candidate candidate;
 	
 	public long getId() {
