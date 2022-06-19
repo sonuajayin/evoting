@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="https://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head th:replace="fragments/header :: head"></head>
+<body class="d-flex flex-column h-100">
+	<div th:replace="fragments/navbarVoter :: navbarVoter"></div>
+
+	<main class="flex-shrink-0">
+		<div class="container">
+			<div class="card-body">
+				<h3 class="card-title text-center"
+					th:text="${votemodel.election.name}"></h3>
+				<hr>
+				<div class="card-text" th:switch="${areas}">
+					<span class="btn btn-outline-danger" th:if="${votemodel.hasVoted}">You
+						have already voted</span> <a th:href="@{/voter}" class="btn btn-primary"
+						style="float: right">Back</a>
+					<div class="card-text" th:switch="${votemodel.candidates}">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Candidate</th>
+									<th>Area / Constitution</th>
+									<th>Party</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="candidate : ${votemodel.candidates}">
+									<td th:text="${candidate.name}"></td>
+									<td th:text="${candidate.area.name}"></td>
+									<td th:text="${candidate.party}"></td>
+									<td><a class="btn btn-danger btn-block"
+										th:if="${!votemodel.hasVoted}"
+										th:href="@{/voter/vote/{electionId}/{candidateId}(electionId=${votemodel.election.id}, candidateId=${candidate.id})}">Vote</a></td>
+								</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -12,8 +12,8 @@
 				<h3 class="card-title text-center">Area / Constitution</h3>
 				<hr>
 				<div class="card-text" th:switch="${candidates}">
-					<a th:href="@{/candidate/add}"
-							class="btn btn-primary" style="float:right">Add</a>
+					<a th:href="@{/candidate/add}" class="btn btn-primary"
+						style="float: right">Add</a>
 					<h2 th:case="null">No candidate yet!</h2>
 					<table class="table table-striped">
 						<thead>
@@ -30,9 +30,12 @@
 								<td th:text="${candidate.name}"></td>
 								<td th:text="${candidate.party}"></td>
 								<td th:text="${candidate.area.name}"></td>
-								<td><a class="btn btn-primary btn-block" th:href="@{/candidate/edit/{id}(id=${candidate.id})}">Edit</a></td>
-								<td><a class="btn btn-danger btn-block" th:href="@{/candidate/delete/{id}(id=${candidate.id})}">Delete</a></td>
+								<td><a class="btn btn-primary btn-block"
+									th:href="@{/candidate/edit/{id}(id=${candidate.id})}">Edit</a></td>
+								<td><a class="btn btn-danger btn-block"
+									th:href="@{/candidate/delete/{id}(id=${candidate.id})}">Delete</a></td>
 							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
